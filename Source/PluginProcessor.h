@@ -70,6 +70,8 @@ public:
     AudioProcessorParameter* m_bottomDistortionAmtParam;
 
 private:
+    Synthesiser m_synth;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ArtifaktAudioProcessor)
 };

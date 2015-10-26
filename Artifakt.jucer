@@ -11,6 +11,10 @@
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0">
   <MAINGROUP id="T8KA7J" name="Artifakt">
     <GROUP id="{A8A6A389-9356-4618-3E00-AAF040C3062A}" name="Source">
+      <FILE id="X552JZ" name="ArtifaktVoice.cpp" compile="1" resource="0"
+            file="Source/ArtifaktVoice.cpp"/>
+      <FILE id="u4UNad" name="ArtifaktVoice.h" compile="0" resource="0" file="Source/ArtifaktVoice.h"/>
+      <FILE id="nnH1FJ" name="ArtifaktSound.h" compile="0" resource="0" file="Source/ArtifaktSound.h"/>
       <FILE id="auOkuy" name="FloatParameter.cpp" compile="1" resource="0"
             file="Source/FloatParameter.cpp"/>
       <FILE id="ARcJv7" name="FloatParameter.h" compile="0" resource="0"

@@ -10,6 +10,8 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "ArtifaktVoice.h"
+#include "ArtifaktSound.h"
 
 
 //==============================================================================
@@ -23,6 +25,11 @@ ArtifaktAudioProcessor::ArtifaktAudioProcessor()
     addParameter(m_bottomDetuneParam = new FloatParameter(0.0f, "Bottom Osc Detune Amount"));
     addParameter(m_bottomDistortionTypeParam = new FloatParameter(0.0f, "Bottom Osc Distortion Type"));
     addParameter(m_bottomDistortionAmtParam = new FloatParameter(0.0f, "Bottom Osc Distortion Amount"));
+
+    m_synth.addSound(new ArtifaktSound());
+
+    for (int i = 4; --i >=0;)
+        m_synth.addVoice(new ArtifaktVoice());
 }
 
 ArtifaktAudioProcessor::~ArtifaktAudioProcessor()
@@ -110,8 +117,7 @@ void ArtifaktAudioProcessor::changeProgramName (int index, const String& newName
 //==============================================================================
 void ArtifaktAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
-    // Use this method as the place to do any pre-playback
-    // initialisation that you need..
+    m_synth.setCurrentPlaybackSampleRate(sampleRate);
 }
 
 void ArtifaktAudioProcessor::releaseResources()
@@ -131,14 +137,8 @@ void ArtifaktAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer
     for (int i = getNumInputChannels(); i < getNumOutputChannels(); ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
 
-    // This is the place where you'd normally do the guts of your plugin's
-    // audio processing...
-    for (int channel = 0; channel < getNumInputChannels(); ++channel)
-    {
-        float* channelData = buffer.getWritePointer (channel);
-
-        // ..do something to the data...
-    }
+    // Render the synthesiser output into the output buffer.
+    m_synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 //==============================================================================
