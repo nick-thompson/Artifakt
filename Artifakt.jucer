@@ -11,6 +11,10 @@
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0">
   <MAINGROUP id="T8KA7J" name="Artifakt">
     <GROUP id="{A8A6A389-9356-4618-3E00-AAF040C3062A}" name="Source">
+      <FILE id="auOkuy" name="FloatParameter.cpp" compile="1" resource="0"
+            file="Source/FloatParameter.cpp"/>
+      <FILE id="ARcJv7" name="FloatParameter.h" compile="0" resource="0"
+            file="Source/FloatParameter.h"/>
       <FILE id="gy0Ckk" name="OscillatorEditor.cpp" compile="1" resource="0"
             file="Source/OscillatorEditor.cpp"/>
       <FILE id="oHgxaD" name="OscillatorEditor.h" compile="0" resource="0"
