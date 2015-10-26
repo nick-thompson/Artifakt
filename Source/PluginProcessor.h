@@ -12,6 +12,7 @@
 #define PLUGINPROCESSOR_H_INCLUDED
 
 #include "../JuceLibraryCode/JuceHeader.h"
+#include "FloatParameter.h"
 
 
 //==============================================================================
@@ -57,6 +58,16 @@ public:
     //==============================================================================
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
+
+    //==============================================================================
+    AudioProcessorParameter* m_topWaveformTypeParam;
+    AudioProcessorParameter* m_topDetuneParam;
+    AudioProcessorParameter* m_topDistortionTypeParam;
+    AudioProcessorParameter* m_topDistortionAmtParam;
+    AudioProcessorParameter* m_bottomWaveformTypeParam;
+    AudioProcessorParameter* m_bottomDetuneParam;
+    AudioProcessorParameter* m_bottomDistortionTypeParam;
+    AudioProcessorParameter* m_bottomDistortionAmtParam;
 
 private:
     //==============================================================================

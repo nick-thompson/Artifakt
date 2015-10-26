@@ -20,13 +20,14 @@ public:
     ~FloatParameter ();
 
     float getValue() const override;
+    void setValue (float newValue) override;
+
     float getDefaultValue() const override;
-    float getValueForText (const String& text) const override;
 
     String getName (int /* maximumStringLength */) const override;
     String getLabel() const override;
 
-    void setValue (float newValue) override;
+    float getValueForText (const String& text) const override;
 
 private:
     float m_defaultValue;

@@ -111,30 +111,42 @@ void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
     
-    // This parent reference can be used to access properties on the AudioProcessor.
-    //     parent->processor->whatevs->setValueNotifyingHost()
-    AudioProcessorEditor* parent = dynamic_cast<AudioProcessorEditor*>(this->getParentComponent());
+    const OwnedArray<AudioProcessorParameter>& params =
+        dynamic_cast<AudioProcessorEditor*>(this->getParentComponent())->processor.getParameters();
+
+    int offset = this->getParentComponent()->getIndexOfChildComponent(this) * 4;
+
+    FloatParameter* waveformTypeParam = static_cast<FloatParameter*>(params[offset + 0]);
+    FloatParameter* detuneParam = static_cast<FloatParameter*>(params[offset + 1]);
+    FloatParameter* distortionTypeParam = static_cast<FloatParameter*>(params[offset + 2]);
+    FloatParameter* distortionAmtParam = static_cast<FloatParameter*>(params[offset + 3]);
+
+    float sliderValue = (float) sliderThatWasMoved->getValue();
 
     //[/UsersliderValueChanged_Pre]
 
     if (sliderThatWasMoved == m_waveformTypeSlider)
     {
         //[UserSliderCode_m_waveformTypeSlider] -- add your slider handling code here..
+        waveformTypeParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_waveformTypeSlider]
     }
     else if (sliderThatWasMoved == m_detuneSlider)
     {
         //[UserSliderCode_m_detuneSlider] -- add your slider handling code here..
+        detuneParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_detuneSlider]
     }
     else if (sliderThatWasMoved == m_distortionTypeSlider)
     {
         //[UserSliderCode_m_distortionTypeSlider] -- add your slider handling code here..
+        distortionTypeParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_distortionTypeSlider]
     }
     else if (sliderThatWasMoved == m_distortionAmtSlider)
     {
         //[UserSliderCode_m_distortionAmtSlider] -- add your slider handling code here..
+        distortionAmtParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_distortionAmtSlider]
     }
 

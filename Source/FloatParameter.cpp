@@ -17,19 +17,23 @@ FloatParameter::FloatParameter(float defaultParameterValue, const String& paramN
 {
 }
 
+FloatParameter::~FloatParameter()
+{
+}
+
 float FloatParameter::getValue() const
 {
     return m_value;
 }
 
+void FloatParameter::setValue (float newValue)
+{
+    m_value = newValue;
+}
+
 float FloatParameter::getDefaultValue() const
 {
     return m_defaultValue;
-}
-
-float FloatParameter::getValueForText (const String& text) const
-{
-    return text.getFloatValue();
 }
 
 String FloatParameter::getName (int /* maximumStringLength */) const
@@ -42,7 +46,7 @@ String FloatParameter::getLabel() const
     return String();
 }
 
-void FloatParameter::setValue (float newValue)
+float FloatParameter::getValueForText (const String& text) const
 {
-    m_value = newValue;
+    return text.getFloatValue();
 }
