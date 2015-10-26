@@ -16,9 +16,12 @@
 ArtifaktAudioProcessorEditor::ArtifaktAudioProcessorEditor (ArtifaktAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
+    addAndMakeVisible(m_topOscillatorEditor);
+    addAndMakeVisible(m_bottomOscillatorEditor);
+    
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (400, 300);
+    setSize (240, 120);
 }
 
 ArtifaktAudioProcessorEditor::~ArtifaktAudioProcessorEditor()
@@ -28,15 +31,11 @@ ArtifaktAudioProcessorEditor::~ArtifaktAudioProcessorEditor()
 //==============================================================================
 void ArtifaktAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colours::white);
-
-    g.setColour (Colours::black);
-    g.setFont (15.0f);
-    g.drawFittedText ("Hello World!", getLocalBounds(), Justification::centred, 1);
+    // Painting deferred to child components.
 }
 
 void ArtifaktAudioProcessorEditor::resized()
 {
-    // This is generally where you'll want to lay out the positions of any
-    // subcomponents in your editor..
+    m_topOscillatorEditor.setTopLeftPosition(0, 0);
+    m_bottomOscillatorEditor.setTopLeftPosition(0, 60);
 }
