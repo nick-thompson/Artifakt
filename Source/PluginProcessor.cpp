@@ -27,20 +27,20 @@ ArtifaktAudioProcessor::ArtifaktAudioProcessor()
     addParameter(m_bottomDistortionTypeParam = new FloatParameter(0.0f, "Bottom Osc Distortion Type"));
     addParameter(m_bottomDistortionAmtParam = new FloatParameter(0.0f, "Bottom Osc Distortion Amount"));
 
+    Wavetable* wtTop = new Wavetable(m_topWaveformTypeParam,
+                                     m_topDistortionTypeParam,
+                                     m_topDistortionAmtParam);
+
+    Wavetable* wtBottom = new Wavetable(m_bottomWaveformTypeParam,
+                                        m_bottomDistortionTypeParam,
+                                        m_bottomDistortionAmtParam);
+
     m_synth.addSound(new ArtifaktSound());
 
     for (int i = 4; --i >=0;)
     {
-        Oscillator* top = new Oscillator(m_topWaveformTypeParam,
-                                         m_topDetuneParam,
-                                         m_topDistortionTypeParam,
-                                         m_topDistortionAmtParam);
-
-        Oscillator* bottom = new Oscillator(m_bottomWaveformTypeParam,
-                                            m_bottomDetuneParam,
-                                            m_bottomDistortionTypeParam,
-                                            m_bottomDistortionAmtParam);
-
+        Oscillator* top = new Oscillator(wtTop, m_topDetuneParam);
+        Oscillator* bottom = new Oscillator(wtBottom, m_bottomDetuneParam);
         m_synth.addVoice(new ArtifaktVoice(top, bottom));
     }
 }

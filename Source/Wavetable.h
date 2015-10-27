@@ -8,21 +8,37 @@
   ==============================================================================
 */
 
+#include "JuceHeader.h"
+#include "FloatParameter.h"
+
 #ifndef WAVETABLE_H_INCLUDED
 #define WAVETABLE_H_INCLUDED
 
 class Wavetable
 {
 public:
-    Wavetable ();
+    Wavetable (AudioProcessorParameter* waveformType,
+               AudioProcessorParameter* distortionType,
+               AudioProcessorParameter* distortionAmt);
+
     ~Wavetable ();
-    
-    float get (int index);
-    
-    static int size;
-    
+
+    void setSampleRate (double sampleRate);
+
+    float get (unsigned range, unsigned index) const;
+
+    unsigned pitchRangeForFrequency (double freq) const;
+
+    static const unsigned size;
+
 private:
-    float* m_table;
+    FloatParameter* m_waveformTypeParam;
+    FloatParameter* m_distortionTypeParam;
+    FloatParameter* m_distortionAmtParam;
+
+    double m_sampleRate;
+
+    std::vector<float> m_table;
 };
 
 
