@@ -9,6 +9,7 @@
 */
 
 #include "JuceHeader.h"
+#include "Oscillator.h"
 
 #ifndef ARTIFAKTVOICE_H_INCLUDED
 #define ARTIFAKTVOICE_H_INCLUDED
@@ -16,7 +17,7 @@
 class ArtifaktVoice  : public SynthesiserVoice
 {
 public:
-    ArtifaktVoice();
+    ArtifaktVoice(Oscillator* top, Oscillator* bottom);
 
     bool canPlaySound (SynthesiserSound* sound) override;
 
@@ -35,6 +36,9 @@ public:
                           int numSamples) override;
 
 private:
+    Oscillator* m_top;
+    Oscillator* m_bottom;
+
     double m_index;
     double m_increment;
     double m_level;

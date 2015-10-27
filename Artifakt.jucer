@@ -11,6 +11,10 @@
               pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="3.2.0">
   <MAINGROUP id="T8KA7J" name="Artifakt">
     <GROUP id="{A8A6A389-9356-4618-3E00-AAF040C3062A}" name="Source">
+      <FILE id="Ro2Q0h" name="Wavetable.cpp" compile="1" resource="0" file="Source/Wavetable.cpp"/>
+      <FILE id="TAhpNb" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
+      <FILE id="PsOWE1" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>
+      <FILE id="DnUKi9" name="Oscillator.h" compile="0" resource="0" file="Source/Oscillator.h"/>
       <FILE id="X552JZ" name="ArtifaktVoice.cpp" compile="1" resource="0"
             file="Source/ArtifaktVoice.cpp"/>
       <FILE id="u4UNad" name="ArtifaktVoice.h" compile="0" resource="0" file="Source/ArtifaktVoice.h"/>
