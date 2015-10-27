@@ -28,6 +28,7 @@ public:
     float get (unsigned range, unsigned index) const;
 
     unsigned pitchRangeForFrequency (double freq) const;
+    unsigned numberOfPartialsForRange (unsigned range) const;
 
     static const unsigned size;
 

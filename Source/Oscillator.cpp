@@ -45,14 +45,25 @@ void Oscillator::render (AudioSampleBuffer& outputBuffer,
                          int startSample,
                          int numSamples)
 {
-    if (m_increment > 0.0) {
-        unsigned mask = Wavetable::size - 1;
+    if (m_increment != 0.0) {
+        unsigned readIndexMask = Wavetable::size - 1;
+
         while (--numSamples >= 0) {
             unsigned readIndex = static_cast<unsigned>(m_index);
+            unsigned readIndexWrappedLeft = readIndex & readIndexMask;
+            unsigned readIndexWrappedRight = (readIndex + 1) & readIndexMask;
 
-            float currentSample = m_wavetable->get(0, readIndex & mask) * m_level;
+            float leftSample = m_wavetable->get(0, readIndexWrappedLeft);
+            float rightSample = m_wavetable->get(0, readIndexWrappedRight);
+
+            // Linear interpolation
+            const float alpha = (float) m_index - (float) readIndex;
+            const float invAlpha = 1.0f - alpha;
+            const float sample =
+                ((invAlpha * leftSample) + (alpha * rightSample)) * m_level;
+
             for (int i = outputBuffer.getNumChannels(); --i >= 0;)
-                outputBuffer.addSample(i, startSample, currentSample);
+                outputBuffer.addSample(i, startSample, sample);
 
             ++startSample;
             m_index += m_increment;
