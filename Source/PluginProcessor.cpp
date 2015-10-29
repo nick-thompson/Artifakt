@@ -14,10 +14,11 @@
 #include "ArtifaktSound.h"
 #include "Oscillator.h"
 
-
 //==============================================================================
 ArtifaktAudioProcessor::ArtifaktAudioProcessor()
 {
+    wavetable::init();
+
     addParameter(m_topWaveformTypeParam = new FloatParameter(0.0f, "Top Osc Waveform Type"));
     addParameter(m_topDetuneParam = new FloatParameter(0.0f, "Top Osc Detune Amount"));
     addParameter(m_topDistortionTypeParam = new FloatParameter(0.0f, "Top Osc Distortion Type"));
