@@ -18,7 +18,7 @@
 class Oscillator
 {
 public:
-    Oscillator (Wavetable* wt, AudioProcessorParameter* detune);
+    Oscillator (AudioProcessorParameter* detune);
     ~Oscillator ();
 
     void setSampleRate (double sampleRate);
@@ -35,7 +35,7 @@ public:
                  int numSamples);
 
 private:
-    Wavetable* m_wavetable;
+    float* m_table;
     FloatParameter* m_detuneParam;
 
     double m_sampleRate;

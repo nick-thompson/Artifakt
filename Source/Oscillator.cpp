@@ -10,8 +10,7 @@
 
 #include "Oscillator.h"
 
-Oscillator::Oscillator (Wavetable* wt, AudioProcessorParameter* detune)
-    : m_wavetable(wt)
+Oscillator::Oscillator (AudioProcessorParameter* detune)
 {
     m_detuneParam = dynamic_cast<FloatParameter*>(detune);
 }
@@ -22,7 +21,6 @@ Oscillator::~Oscillator ()
 
 void Oscillator::setSampleRate(double sampleRate) {
     m_sampleRate = sampleRate;
-    m_wavetable->setSampleRate(sampleRate);
 }
 
 void Oscillator::noteOn (int midiNoteNumber, float velocity)
@@ -33,7 +31,8 @@ void Oscillator::noteOn (int midiNoteNumber, float velocity)
     double cyclesPerSecond = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
     double cyclesPerSample = cyclesPerSecond / m_sampleRate;
 
-    m_increment = cyclesPerSample * Wavetable::size;
+    m_table = wavetable::getTable(wavetable::SAW, cyclesPerSecond);
+    m_increment = cyclesPerSample * wavetable::kTableSize;
 }
 
 void Oscillator::noteOff (float velocity, bool allowTailOff)
@@ -46,15 +45,15 @@ void Oscillator::render (AudioSampleBuffer& outputBuffer,
                          int numSamples)
 {
     if (m_increment != 0.0) {
-        unsigned readIndexMask = Wavetable::size - 1;
+        unsigned readIndexMask = wavetable::kTableSize - 1;
 
         while (--numSamples >= 0) {
             unsigned readIndex = static_cast<unsigned>(m_index);
             unsigned readIndexWrappedLeft = readIndex & readIndexMask;
             unsigned readIndexWrappedRight = (readIndex + 1) & readIndexMask;
 
-            float leftSample = m_wavetable->get(0, readIndexWrappedLeft);
-            float rightSample = m_wavetable->get(0, readIndexWrappedRight);
+            float leftSample = m_table[readIndexWrappedLeft];
+            float rightSample = m_table[readIndexWrappedRight];
 
             // Linear interpolation
             const float alpha = (float) m_index - (float) readIndex;
