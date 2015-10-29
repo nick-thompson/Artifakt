@@ -10,73 +10,47 @@
 
 #include "Wavetable.h"
 
-const unsigned Wavetable::size = 1024;
+using namespace wavetable;
 
-const unsigned kBandsPerOctave = 3;
-const unsigned kNumRanges = 0.5 * kBandsPerOctave * log2f(Wavetable::size);
-const unsigned kMaxNumberOfPartials = Wavetable::size / 2;
-
-const float kCentsPerRange = 1200.0f / kBandsPerOctave;
-
-Wavetable::Wavetable (AudioProcessorParameter* waveformType,
-           AudioProcessorParameter* distortionType,
-           AudioProcessorParameter* distortionAmt)
+void wavetable::init()
 {
-    m_waveformTypeParam = dynamic_cast<FloatParameter*>(waveformType);
-    m_distortionTypeParam = dynamic_cast<FloatParameter*>(distortionType);
-    m_distortionAmtParam = dynamic_cast<FloatParameter*>(distortionAmt);
+    // Appropriate enough space in the vector.
+    data.resize(NUM_WAVE_TYPES * kNumRanges * kTableSize);
 
-    m_table.resize(kNumRanges * size);
-
-    for (int i = 0; i < kNumRanges; i++)
+    for (int ii = 0; ii < kNumRanges; ii++)
     {
-        unsigned numPartials = numberOfPartialsForRange(i);
-        for (int j = 0; j < size; j++)
-        {
-            for (int k = 1; k <= numPartials; k++)
-            {
-                double t = (double) j / size;
-                double sample = std::sin(2.0 * double_Pi * (double) k * t)
-                    / ((double) k * double_Pi);
+        // Assuming a sample rate of 44100...
+        double fq = MidiMessage::getMidiNoteInHertz(ii);
+        unsigned numPartials = (int) (44100.0f * 0.5f / fq);
+        unsigned wavetableIndex = SAW * ii * kTableSize;
 
-                m_table[i * size + j] += (float) sample;
+        // Fill the current wavetable
+        for (int jj = 0; jj < kTableSize; jj++)
+        {
+            for (int kk = 1; kk <= numPartials; kk++)
+            {
+                double t = (double) jj / kTableSize;
+                double sample = std::sin(2.0 * double_Pi * (double) kk * t)
+                    / ((double) kk * double_Pi);
+
+                data[wavetableIndex + jj] += (float) sample;
             }
         }
+
+        // Set the lookup entry.
+        lookup[SAW * kNumRanges + ii] = wavetableIndex;
     }
 }
 
-Wavetable::~Wavetable ()
+float* wavetable::getTable(WaveType t, double fq)
 {
-}
+    // Enforce that `init` has already been called.
+    jassert(!data.empty());
 
-void Wavetable::setSampleRate(double sampleRate)
-{
-    m_sampleRate = sampleRate;
-}
+    // Determine the closest appropriate MIDI note value.
+    int noteValue = 69 + (int) ceil(12.0 * log2(fq / 440.0));
+    int lookupIndex = t * kNumRanges + noteValue;
 
-float Wavetable::get(unsigned range, unsigned index) const
-{
-    // TODO: Here we'll interpolate using waveformType, then apply the transfer
-    // function from the distortion parameters.
-    return m_table[range * size + index];
-}
-
-unsigned Wavetable::pitchRangeForFrequency(double freq) const
-{
-    // TODO
-    return 0;
-}
-
-unsigned Wavetable::numberOfPartialsForRange(unsigned range) const
-{
-   // Number of cents below nyquist where we cull partials.
-    float centsToCull = range * kCentsPerRange;
-
-    // A value from 0 -> 1 representing what fraction of the partials to keep.
-    float cullingScale = pow(2, -centsToCull / 1200);
-
-    // The very top range will have all the partials culled.
-    unsigned numberOfPartials = cullingScale * kMaxNumberOfPartials;
-
-    return numberOfPartials;
+    float* p = data.data() + lookupIndex * sizeof(float);
+    return p;
 }

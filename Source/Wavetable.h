@@ -9,39 +9,41 @@
 */
 
 #include "JuceHeader.h"
-#include "FloatParameter.h"
 
 #ifndef WAVETABLE_H_INCLUDED
 #define WAVETABLE_H_INCLUDED
 
-class Wavetable
+namespace wavetable
 {
-public:
-    Wavetable (AudioProcessorParameter* waveformType,
-               AudioProcessorParameter* distortionType,
-               AudioProcessorParameter* distortionAmt);
+    // Number of samples in a given wavetable.
+    const unsigned kTableSize = 4096;
 
-    ~Wavetable ();
+    // Maximum number of partials we can hold in a given wavetable.
+    const unsigned kMaxNumberOfPartials = kTableSize / 2;
 
-    void setSampleRate (double sampleRate);
+    // One wavetable for each of 128 frequency ranges, corresponding to those
+    // of MIDI note values.
+    const unsigned kNumRanges = 128;
 
-    float get (unsigned range, unsigned index) const;
+    // Four possible wave types, in an order representing how they morph
+    // into one another.
+    enum WaveType { SINE, TRIANGLE, SAW, SQUARE, NUM_WAVE_TYPES };
 
-    unsigned pitchRangeForFrequency (double freq) const;
-    unsigned numberOfPartialsForRange (unsigned range) const;
+    // Container for the wavetable data. Each WaveType will reserve
+    // kNumRanges * kTableSize entries – one band-limited table for each
+    // MIDI note value.
+    std::vector<float> data;
 
-    static const unsigned size;
+    // A separate vector mapping MIDI note values to wavetable indeces.
+    std::vector<int> lookup(NUM_WAVE_TYPES * kNumRanges);
 
-private:
-    FloatParameter* m_waveformTypeParam;
-    FloatParameter* m_distortionTypeParam;
-    FloatParameter* m_distortionAmtParam;
+    // Responsible for initializing the data vector.
+    void init();
 
-    double m_sampleRate;
-
-    std::vector<float> m_table;
-};
-
-
+    // Returns a pointer into the data container, pointing at the first
+    // entry of the appropriate table given WaveType and the corresponding
+    // frequency value.
+    float* getTable(WaveType t, double fq);
+}
 
 #endif  // WAVETABLE_H_INCLUDED
