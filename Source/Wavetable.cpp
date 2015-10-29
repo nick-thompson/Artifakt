@@ -38,6 +38,18 @@ namespace wavetable
                 }
             }
 
+            // Normalize the wavetable
+            float max = 0.0f;
+            for (int jj = 0; jj < kTableSize; jj++)
+            {
+                float sample = fabs(data[wavetableIndex + jj]);
+                if (sample > max)
+                    max = sample;
+            }
+
+            for (int jj = 0; jj < kTableSize; jj++)
+                data[wavetableIndex + jj] /= max;
+
             // Set the lookup entry.
             lookup[SAW * kNumRanges + ii] = wavetableIndex;
         }
@@ -49,10 +61,10 @@ namespace wavetable
         jassert(!data.empty());
 
         // Determine the closest appropriate MIDI note value.
-        int noteValue = 69 + (int) ceil(12.0 * log2(fq / 440.0));
-        int lookupIndex = t * kNumRanges + noteValue;
+        int note = 69 + (int) ceil(12.0 * log2(fq / 440.0));
+        DBG(note);
 
-        float* p = data.data() + lookupIndex * sizeof(float);
-        return p;
+        // Offset the return pointer from the front of the array.
+        return data.data() + lookup[t * kNumRanges + note];
     }
 }
