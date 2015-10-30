@@ -66,6 +66,14 @@ void Oscillator::render (AudioSampleBuffer& outputBuffer,
 
             ++startSample;
             m_index += m_increment;
+
+            if (m_index > wavetable::kTableSizef)
+            {
+                // New wavetable cycle. Update wave tables for pitch slides.
+                // m_freq *= slideFactor;
+                // m_table = wavetable::getTable(wavetable::SAW, freq);
+                m_index -= wavetable::kTableSizef;
+            }
         }
     }
 }

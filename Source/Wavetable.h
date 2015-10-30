@@ -17,6 +17,7 @@ namespace wavetable
 {
     // Number of samples in a given wavetable.
     const unsigned kTableSize = 4096;
+    const float kTableSizef = 4096.0f;
 
     // Maximum number of partials we can hold in a given wavetable.
     const unsigned kMaxNumberOfPartials = kTableSize / 2;
