@@ -21,7 +21,7 @@ ArtifaktAudioProcessorEditor::ArtifaktAudioProcessorEditor (ArtifaktAudioProcess
     
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (240, 120);
+    setSize (176, 68 * 2);
 }
 
 ArtifaktAudioProcessorEditor::~ArtifaktAudioProcessorEditor()
@@ -37,5 +37,5 @@ void ArtifaktAudioProcessorEditor::paint (Graphics& g)
 void ArtifaktAudioProcessorEditor::resized()
 {
     m_topOscillatorEditor.setTopLeftPosition(0, 0);
-    m_bottomOscillatorEditor.setTopLeftPosition(0, 60);
+    m_bottomOscillatorEditor.setTopLeftPosition(0, 68);
 }

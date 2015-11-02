@@ -21,12 +21,10 @@ ArtifaktAudioProcessor::ArtifaktAudioProcessor()
 
     addParameter(m_topWaveformTypeParam = new FloatParameter(0.0f, "Top Osc Waveform Type"));
     addParameter(m_topDetuneParam = new FloatParameter(0.0f, "Top Osc Detune Amount"));
-    addParameter(m_topDistortionTypeParam = new FloatParameter(0.0f, "Top Osc Distortion Type"));
-    addParameter(m_topDistortionAmtParam = new FloatParameter(0.0f, "Top Osc Distortion Amount"));
+    addParameter(m_topDistortionParam = new FloatParameter(0.0f, "Top Osc Distortion"));
     addParameter(m_bottomWaveformTypeParam = new FloatParameter(0.0f, "Bottom Osc Waveform Type"));
     addParameter(m_bottomDetuneParam = new FloatParameter(0.0f, "Bottom Osc Detune Amount"));
-    addParameter(m_bottomDistortionTypeParam = new FloatParameter(0.0f, "Bottom Osc Distortion Type"));
-    addParameter(m_bottomDistortionAmtParam = new FloatParameter(0.0f, "Bottom Osc Distortion Amount"));
+    addParameter(m_bottomDistortionParam = new FloatParameter(0.0f, "Bottom Osc Distortion"));
 
     m_synth.addSound(new ArtifaktSound());
 

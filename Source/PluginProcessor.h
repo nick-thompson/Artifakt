@@ -63,12 +63,10 @@ public:
     //==============================================================================
     AudioProcessorParameter* m_topWaveformTypeParam;
     AudioProcessorParameter* m_topDetuneParam;
-    AudioProcessorParameter* m_topDistortionTypeParam;
-    AudioProcessorParameter* m_topDistortionAmtParam;
+    AudioProcessorParameter* m_topDistortionParam;
     AudioProcessorParameter* m_bottomWaveformTypeParam;
     AudioProcessorParameter* m_bottomDetuneParam;
-    AudioProcessorParameter* m_bottomDistortionTypeParam;
-    AudioProcessorParameter* m_bottomDistortionAmtParam;
+    AudioProcessorParameter* m_bottomDistortionParam;
 
 private:
     Synthesiser m_synth;

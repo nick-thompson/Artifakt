@@ -18,7 +18,6 @@
 */
 
 //[Headers] You can add your own extra header files here...
-#include "Wavetable.h"
 //[/Headers]
 
 #include "OscillatorEditor.h"
@@ -167,12 +166,11 @@ void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     const OwnedArray<AudioProcessorParameter>& params =
         dynamic_cast<AudioProcessorEditor*>(this->getParentComponent())->processor.getParameters();
 
-    int offset = this->getParentComponent()->getIndexOfChildComponent(this) * 4;
+    int offset = this->getParentComponent()->getIndexOfChildComponent(this) * 3;
 
     FloatParameter* waveformTypeParam = static_cast<FloatParameter*>(params[offset + 0]);
     FloatParameter* detuneParam = static_cast<FloatParameter*>(params[offset + 1]);
-    FloatParameter* distortionTypeParam = static_cast<FloatParameter*>(params[offset + 2]);
-    FloatParameter* distortionAmtParam = static_cast<FloatParameter*>(params[offset + 3]);
+    FloatParameter* distortionParam = static_cast<FloatParameter*>(params[offset + 2]);
 
     float sliderValue = (float) sliderThatWasMoved->getValue();
 
@@ -187,11 +185,13 @@ void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == m_detuneSlider)
     {
         //[UserSliderCode_m_detuneSlider] -- add your slider handling code here..
+        detuneParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_detuneSlider]
     }
     else if (sliderThatWasMoved == m_distortionSlider)
     {
         //[UserSliderCode_m_distortionSlider] -- add your slider handling code here..
+        distortionParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_distortionSlider]
     }
 
