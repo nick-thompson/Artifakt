@@ -59,9 +59,11 @@ private:
 
     //==============================================================================
     ScopedPointer<Slider> m_waveformTypeSlider;
+    ScopedPointer<Label> m_detuneLabel;
+    ScopedPointer<Label> m_waveTypeLabel;
     ScopedPointer<Slider> m_detuneSlider;
-    ScopedPointer<Slider> m_distortionTypeSlider;
-    ScopedPointer<Slider> m_distortionAmtSlider;
+    ScopedPointer<Slider> m_distortionSlider;
+    ScopedPointer<Label> m_distLabel;
 
 
     //==============================================================================

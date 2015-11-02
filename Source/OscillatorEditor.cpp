@@ -34,34 +34,82 @@ OscillatorEditor::OscillatorEditor ()
     //[/Constructor_pre]
 
     addAndMakeVisible (m_waveformTypeSlider = new Slider ("Waveform Type Slider"));
-    m_waveformTypeSlider->setRange (0, wavetable::NUM_WAVE_TYPES - 1, 0);
+    m_waveformTypeSlider->setRange (0, 3, 0.166);
     m_waveformTypeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     m_waveformTypeSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
+    m_waveformTypeSlider->setColour (Slider::thumbColourId, Colour (0xff1de9b6));
+    m_waveformTypeSlider->setColour (Slider::trackColourId, Colour (0x00000000));
+    m_waveformTypeSlider->setColour (Slider::rotarySliderFillColourId, Colour (0xff1de9b6));
+    m_waveformTypeSlider->setColour (Slider::rotarySliderOutlineColourId, Colour (0xff212121));
+    m_waveformTypeSlider->setColour (Slider::textBoxTextColourId, Colour (0xff212121));
+    m_waveformTypeSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00000000));
+    m_waveformTypeSlider->setColour (Slider::textBoxHighlightColourId, Colour (0xff1de9b6));
+    m_waveformTypeSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00000000));
     m_waveformTypeSlider->addListener (this);
 
+    addAndMakeVisible (m_detuneLabel = new Label ("Detune Label",
+                                                  TRANS("DETUNE")));
+    m_detuneLabel->setFont (Font ("Avenir Next", 14.00f, Font::plain));
+    m_detuneLabel->setJustificationType (Justification::centred);
+    m_detuneLabel->setEditable (false, false, false);
+    m_detuneLabel->setColour (Label::textColourId, Colour (0xff212121));
+    m_detuneLabel->setColour (TextEditor::textColourId, Colour (0xff212121));
+    m_detuneLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    m_detuneLabel->setColour (TextEditor::highlightColourId, Colour (0xff1de9b6));
+
+    addAndMakeVisible (m_waveTypeLabel = new Label ("Waveform Type Label",
+                                                    TRANS("WAVE")));
+    m_waveTypeLabel->setFont (Font ("Avenir Next", 14.00f, Font::plain));
+    m_waveTypeLabel->setJustificationType (Justification::centred);
+    m_waveTypeLabel->setEditable (false, false, false);
+    m_waveTypeLabel->setColour (Label::textColourId, Colour (0xff212121));
+    m_waveTypeLabel->setColour (TextEditor::textColourId, Colour (0xff212121));
+    m_waveTypeLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    m_waveTypeLabel->setColour (TextEditor::highlightColourId, Colour (0xff1de9b6));
+
     addAndMakeVisible (m_detuneSlider = new Slider ("Detune Slider"));
-    m_detuneSlider->setRange (0, 10, 0);
+    m_detuneSlider->setRange (-100, 100, 1);
     m_detuneSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     m_detuneSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
+    m_detuneSlider->setColour (Slider::thumbColourId, Colour (0xff1de9b6));
+    m_detuneSlider->setColour (Slider::trackColourId, Colour (0x00000000));
+    m_detuneSlider->setColour (Slider::rotarySliderFillColourId, Colour (0xff1de9b6));
+    m_detuneSlider->setColour (Slider::rotarySliderOutlineColourId, Colour (0xff212121));
+    m_detuneSlider->setColour (Slider::textBoxTextColourId, Colour (0xff212121));
+    m_detuneSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00000000));
+    m_detuneSlider->setColour (Slider::textBoxHighlightColourId, Colour (0xff1de9b6));
+    m_detuneSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00000000));
     m_detuneSlider->addListener (this);
 
-    addAndMakeVisible (m_distortionTypeSlider = new Slider ("Distortion Type Slider"));
-    m_distortionTypeSlider->setRange (0, 10, 0);
-    m_distortionTypeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    m_distortionTypeSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
-    m_distortionTypeSlider->addListener (this);
+    addAndMakeVisible (m_distortionSlider = new Slider ("Distortion Slider"));
+    m_distortionSlider->setRange (0, 1, 0);
+    m_distortionSlider->setSliderStyle (Slider::RotaryVerticalDrag);
+    m_distortionSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
+    m_distortionSlider->setColour (Slider::thumbColourId, Colour (0xff1de9b6));
+    m_distortionSlider->setColour (Slider::trackColourId, Colour (0x00000000));
+    m_distortionSlider->setColour (Slider::rotarySliderFillColourId, Colour (0xff1de9b6));
+    m_distortionSlider->setColour (Slider::rotarySliderOutlineColourId, Colour (0xff212121));
+    m_distortionSlider->setColour (Slider::textBoxTextColourId, Colour (0xff212121));
+    m_distortionSlider->setColour (Slider::textBoxBackgroundColourId, Colour (0x00000000));
+    m_distortionSlider->setColour (Slider::textBoxHighlightColourId, Colour (0xff1de9b6));
+    m_distortionSlider->setColour (Slider::textBoxOutlineColourId, Colour (0x00000000));
+    m_distortionSlider->addListener (this);
 
-    addAndMakeVisible (m_distortionAmtSlider = new Slider ("Distortion Amt Slider"));
-    m_distortionAmtSlider->setRange (0, 10, 0);
-    m_distortionAmtSlider->setSliderStyle (Slider::RotaryVerticalDrag);
-    m_distortionAmtSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
-    m_distortionAmtSlider->addListener (this);
+    addAndMakeVisible (m_distLabel = new Label ("Distortion Label",
+                                                TRANS("DIST.")));
+    m_distLabel->setFont (Font ("Avenir Next", 14.00f, Font::plain));
+    m_distLabel->setJustificationType (Justification::centred);
+    m_distLabel->setEditable (false, false, false);
+    m_distLabel->setColour (Label::textColourId, Colour (0xff212121));
+    m_distLabel->setColour (TextEditor::textColourId, Colour (0xff212121));
+    m_distLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    m_distLabel->setColour (TextEditor::highlightColourId, Colour (0xff1de9b6));
 
 
     //[UserPreSize]
     //[/UserPreSize]
 
-    setSize (240, 60);
+    setSize (176, 68);
 
 
     //[Constructor] You can add your own custom stuff here..
@@ -74,9 +122,11 @@ OscillatorEditor::~OscillatorEditor()
     //[/Destructor_pre]
 
     m_waveformTypeSlider = nullptr;
+    m_detuneLabel = nullptr;
+    m_waveTypeLabel = nullptr;
     m_detuneSlider = nullptr;
-    m_distortionTypeSlider = nullptr;
-    m_distortionAmtSlider = nullptr;
+    m_distortionSlider = nullptr;
+    m_distLabel = nullptr;
 
 
     //[Destructor]. You can add your own custom destruction code here..
@@ -100,10 +150,12 @@ void OscillatorEditor::resized()
     //[UserPreResize] Add your own custom resize code here..
     //[/UserPreResize]
 
-    m_waveformTypeSlider->setBounds (6, 6, 48, 48);
-    m_detuneSlider->setBounds (66, 6, 48, 48);
-    m_distortionTypeSlider->setBounds (126, 6, 48, 48);
-    m_distortionAmtSlider->setBounds (186, 6, 48, 48);
+    m_waveformTypeSlider->setBounds (8, 8, 48, 48);
+    m_detuneLabel->setBounds (64, 48, 48, 20);
+    m_waveTypeLabel->setBounds (8, 48, 48, 20);
+    m_detuneSlider->setBounds (64, 8, 48, 48);
+    m_distortionSlider->setBounds (120, 8, 48, 48);
+    m_distLabel->setBounds (120, 48, 48, 20);
     //[UserResized] Add your own custom resize handling here..
     //[/UserResized]
 }
@@ -111,7 +163,7 @@ void OscillatorEditor::resized()
 void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
-    
+
     const OwnedArray<AudioProcessorParameter>& params =
         dynamic_cast<AudioProcessorEditor*>(this->getParentComponent())->processor.getParameters();
 
@@ -135,20 +187,12 @@ void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
     else if (sliderThatWasMoved == m_detuneSlider)
     {
         //[UserSliderCode_m_detuneSlider] -- add your slider handling code here..
-        detuneParam->setValueNotifyingHost(sliderValue);
         //[/UserSliderCode_m_detuneSlider]
     }
-    else if (sliderThatWasMoved == m_distortionTypeSlider)
+    else if (sliderThatWasMoved == m_distortionSlider)
     {
-        //[UserSliderCode_m_distortionTypeSlider] -- add your slider handling code here..
-        distortionTypeParam->setValueNotifyingHost(sliderValue);
-        //[/UserSliderCode_m_distortionTypeSlider]
-    }
-    else if (sliderThatWasMoved == m_distortionAmtSlider)
-    {
-        //[UserSliderCode_m_distortionAmtSlider] -- add your slider handling code here..
-        distortionAmtParam->setValueNotifyingHost(sliderValue);
-        //[/UserSliderCode_m_distortionAmtSlider]
+        //[UserSliderCode_m_distortionSlider] -- add your slider handling code here..
+        //[/UserSliderCode_m_distortionSlider]
     }
 
     //[UsersliderValueChanged_Post]
@@ -173,24 +217,44 @@ BEGIN_JUCER_METADATA
 <JUCER_COMPONENT documentType="Component" className="OscillatorEditor" componentName=""
                  parentClasses="public Component" constructorParams="" variableInitialisers=""
                  snapPixels="8" snapActive="1" snapShown="1" overlayOpacity="0.330"
-                 fixedSize="1" initialWidth="240" initialHeight="60">
+                 fixedSize="1" initialWidth="176" initialHeight="68">
   <BACKGROUND backgroundColour="ff424242"/>
   <SLIDER name="Waveform Type Slider" id="6bf52f32c05db73e" memberName="m_waveformTypeSlider"
-          virtualName="" explicitFocusOrder="0" pos="6 6 48 48" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="0" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="Detune Slider" id="caee4947212defec" memberName="m_detuneSlider"
-          virtualName="" explicitFocusOrder="0" pos="66 6 48 48" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="0" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="Distortion Type Slider" id="e18c7bc635c988a6" memberName="m_distortionTypeSlider"
-          virtualName="" explicitFocusOrder="0" pos="126 6 48 48" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="0" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
-  <SLIDER name="Distortion Amt Slider" id="ed44a77afcd55a16" memberName="m_distortionAmtSlider"
-          virtualName="" explicitFocusOrder="0" pos="186 6 48 48" min="0"
-          max="10" int="0" style="RotaryVerticalDrag" textBoxPos="NoTextBox"
-          textBoxEditable="0" textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          virtualName="" explicitFocusOrder="0" pos="8 8 48 48" thumbcol="ff1de9b6"
+          trackcol="0" rotarysliderfill="ff1de9b6" rotaryslideroutline="ff212121"
+          textboxtext="ff212121" textboxbkgd="0" textboxhighlight="ff1de9b6"
+          textboxoutline="0" min="0" max="3" int="0.16600000000000000866"
+          style="RotaryVerticalDrag" textBoxPos="NoTextBox" textBoxEditable="0"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="Detune Label" id="a1f93c7386977e20" memberName="m_detuneLabel"
+         virtualName="" explicitFocusOrder="0" pos="64 48 48 20" textCol="ff212121"
+         edTextCol="ff212121" edBkgCol="0" hiliteCol="ff1de9b6" labelText="DETUNE"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Avenir Next" fontsize="14" bold="0" italic="0" justification="36"/>
+  <LABEL name="Waveform Type Label" id="be04e04491416e57" memberName="m_waveTypeLabel"
+         virtualName="" explicitFocusOrder="0" pos="8 48 48 20" textCol="ff212121"
+         edTextCol="ff212121" edBkgCol="0" hiliteCol="ff1de9b6" labelText="WAVE"
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Avenir Next" fontsize="14" bold="0" italic="0" justification="36"/>
+  <SLIDER name="Detune Slider" id="d1daad0e26566e09" memberName="m_detuneSlider"
+          virtualName="" explicitFocusOrder="0" pos="64 8 48 48" thumbcol="ff1de9b6"
+          trackcol="0" rotarysliderfill="ff1de9b6" rotaryslideroutline="ff212121"
+          textboxtext="ff212121" textboxbkgd="0" textboxhighlight="ff1de9b6"
+          textboxoutline="0" min="-100" max="100" int="1" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="0" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
+  <SLIDER name="Distortion Slider" id="aedfe51a3e31f5db" memberName="m_distortionSlider"
+          virtualName="" explicitFocusOrder="0" pos="120 8 48 48" thumbcol="ff1de9b6"
+          trackcol="0" rotarysliderfill="ff1de9b6" rotaryslideroutline="ff212121"
+          textboxtext="ff212121" textboxbkgd="0" textboxhighlight="ff1de9b6"
+          textboxoutline="0" min="0" max="1" int="0" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="0" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
+  <LABEL name="Distortion Label" id="655def837cafb84e" memberName="m_distLabel"
+         virtualName="" explicitFocusOrder="0" pos="120 48 48 20" textCol="ff212121"
+         edTextCol="ff212121" edBkgCol="0" hiliteCol="ff1de9b6" labelText="DIST."
+         editableSingleClick="0" editableDoubleClick="0" focusDiscardsChanges="0"
+         fontname="Avenir Next" fontsize="14" bold="0" italic="0" justification="36"/>
 </JUCER_COMPONENT>
 
 END_JUCER_METADATA
