@@ -30,13 +30,9 @@ namespace wavetable
     // into one another.
     enum WaveType { SINE, TRIANGLE, SAW, SQUARE, NUM_WAVE_TYPES };
 
-    // Container for the wavetable data. Each WaveType will reserve
-    // kNumRanges * kTableSize entries – one band-limited table for each
-    // MIDI note value.
+    // Container for the wavetable data, mapped from the `wavetable.data`
+    // binary resource.
     extern std::vector<float> data;
-
-    // A separate vector mapping MIDI note values to wavetable indeces.
-    extern std::vector<int> lookup;
 
     // Responsible for initializing the data vector.
     void init();
