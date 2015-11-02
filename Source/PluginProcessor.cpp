@@ -32,8 +32,8 @@ ArtifaktAudioProcessor::ArtifaktAudioProcessor()
 
     for (int i = 4; --i >=0;)
     {
-        Oscillator* top = new Oscillator(m_topDetuneParam);
-        Oscillator* bottom = new Oscillator(m_bottomDetuneParam);
+        Oscillator* top = new Oscillator(m_topDetuneParam, m_topWaveformTypeParam);
+        Oscillator* bottom = new Oscillator(m_bottomDetuneParam, m_bottomWaveformTypeParam);
         m_synth.addVoice(new ArtifaktVoice(top, bottom));
     }
 }

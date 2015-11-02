@@ -18,6 +18,7 @@
 */
 
 //[Headers] You can add your own extra header files here...
+#include "Wavetable.h"
 //[/Headers]
 
 #include "OscillatorEditor.h"
@@ -33,7 +34,7 @@ OscillatorEditor::OscillatorEditor ()
     //[/Constructor_pre]
 
     addAndMakeVisible (m_waveformTypeSlider = new Slider ("Waveform Type Slider"));
-    m_waveformTypeSlider->setRange (0, 10, 0);
+    m_waveformTypeSlider->setRange (0, wavetable::NUM_WAVE_TYPES - 1, 0);
     m_waveformTypeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     m_waveformTypeSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
     m_waveformTypeSlider->addListener (this);

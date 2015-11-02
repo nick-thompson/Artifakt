@@ -10,16 +10,21 @@
 
 #include "Oscillator.h"
 
-Oscillator::Oscillator (AudioProcessorParameter* detune)
+using wavetable::WaveType;
+
+Oscillator::Oscillator (AudioProcessorParameter* detune,
+                        AudioProcessorParameter* waveType)
 {
     m_detuneParam = dynamic_cast<FloatParameter*>(detune);
+    m_waveTypeParam = dynamic_cast<FloatParameter*>(waveType);
 }
 
 Oscillator::~Oscillator ()
 {
 }
 
-void Oscillator::setSampleRate(double sampleRate) {
+void Oscillator::setSampleRate(double sampleRate)
+{
     m_sampleRate = sampleRate;
 }
 
@@ -31,12 +36,17 @@ void Oscillator::noteOn (int midiNoteNumber, float velocity)
     double cyclesPerSecond = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
     double cyclesPerSample = cyclesPerSecond / m_sampleRate;
 
-    m_table = wavetable::getTable(wavetable::SAW, cyclesPerSecond);
+    unsigned waveType = static_cast<unsigned>(m_waveTypeParam->getValue());
+    WaveType type = static_cast<WaveType>(waveType);
+
+    m_table = wavetable::getTable(type, cyclesPerSecond);
     m_increment = cyclesPerSample * wavetable::kTableSize;
 }
 
 void Oscillator::noteOff (float velocity, bool allowTailOff)
 {
+    // TODO: Getting clicks on noteOff because the sample abruptly stops instead
+    // of quickly fading off.
     m_increment = 0.0;
 }
 
