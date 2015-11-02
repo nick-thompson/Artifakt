@@ -10,7 +10,7 @@
 namespace BinaryData
 {
     extern const char*   wavetable_data;
-    const int            wavetable_dataSize = 6307840;
+    const int            wavetable_dataSize = 8388608;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];
