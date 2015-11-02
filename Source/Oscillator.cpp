@@ -43,7 +43,10 @@ void Oscillator::noteOn (int midiNoteNumber, float velocity)
     m_index = 0.0;
     m_level = velocity * 0.15;
 
-    double cyclesPerSecond = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
+    float detune = m_detuneParam->getValue();
+    double ratio = pow(2, (double) detune / 1200.0);
+    double cyclesPerSecond =
+        MidiMessage::getMidiNoteInHertz(midiNoteNumber) * ratio;
     double cyclesPerSample = cyclesPerSecond / m_sampleRate;
 
     float waveTypeValue = m_waveTypeParam->getValue();
