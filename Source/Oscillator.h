@@ -41,11 +41,15 @@ private:
 
     double m_sampleRate;
 
-    float* m_table;
+    // Each oscillator draws from two wavetables as determined by the waveType
+    // parameter.
+    float* m_left;
+    float* m_right;
 
     float m_index;
     float m_increment;
     float m_level;
+    float m_tableAlpha;
 };
 
 #endif  // OSCILLATOR_H_INCLUDED

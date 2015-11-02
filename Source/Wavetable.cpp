@@ -44,4 +44,10 @@ namespace wavetable
         // Offset the return pointer from the front of the array.
         return data.data() + offset;
     }
+
+    float* getTable(int typeIndex, double fq)
+    {
+        WaveType t = static_cast<WaveType>(typeIndex);
+        return getTable(t, fq);
+    }
 }

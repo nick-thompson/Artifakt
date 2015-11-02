@@ -41,6 +41,7 @@ namespace wavetable
     // entry of the appropriate table given WaveType and the corresponding
     // frequency value.
     float* getTable(WaveType t, double fq);
+    float* getTable(int typeIndex, double fq);
 }
 
 #endif  // WAVETABLE_H_INCLUDED
