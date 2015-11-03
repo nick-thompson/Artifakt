@@ -91,7 +91,7 @@ void Oscillator::render (AudioSampleBuffer& outputBuffer,
                 (float) m_index - (float) readIndex
             );
 
-            float sample = lerpf(left, right, m_tableAlpha);
+            float sample = lerpf(left, right, m_tableAlpha) * m_level;
 
             for (int i = outputBuffer.getNumChannels(); --i >= 0;)
                 outputBuffer.addSample(i, startSample, sample);
