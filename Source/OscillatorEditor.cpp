@@ -163,8 +163,10 @@ void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     //[UsersliderValueChanged_Pre]
 
+    Component* top = this->getParentComponent()->getParentComponent();
+
     const OwnedArray<AudioProcessorParameter>& params =
-        dynamic_cast<AudioProcessorEditor*>(this->getParentComponent())->processor.getParameters();
+        dynamic_cast<AudioProcessorEditor*>(top)->processor.getParameters();
 
     int offset = this->getParentComponent()->getIndexOfChildComponent(this) * 3;
 

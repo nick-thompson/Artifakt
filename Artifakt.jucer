@@ -14,6 +14,10 @@
       <FILE id="p4elbC" name="wavetable.data" compile="0" resource="1" file="Resources/wavetable.data"/>
     </GROUP>
     <GROUP id="{A8A6A389-9356-4618-3E00-AAF040C3062A}" name="Source">
+      <FILE id="H9dnfY" name="MainUIComponent.cpp" compile="1" resource="0"
+            file="Source/MainUIComponent.cpp"/>
+      <FILE id="u3zmZu" name="MainUIComponent.h" compile="0" resource="0"
+            file="Source/MainUIComponent.h"/>
       <FILE id="Ro2Q0h" name="Wavetable.cpp" compile="1" resource="0" file="Source/Wavetable.cpp"/>
       <FILE id="TAhpNb" name="Wavetable.h" compile="0" resource="0" file="Source/Wavetable.h"/>
       <FILE id="PsOWE1" name="Oscillator.cpp" compile="1" resource="0" file="Source/Oscillator.cpp"/>

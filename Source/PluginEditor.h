@@ -13,7 +13,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "PluginProcessor.h"
-#include "OscillatorEditor.h"
+#include "MainUIComponent.h"
 
 
 //==============================================================================
@@ -33,9 +33,8 @@ private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
     ArtifaktAudioProcessor& processor;
-    
-    OscillatorEditor m_topOscillatorEditor;
-    OscillatorEditor m_bottomOscillatorEditor;
+
+    MainUIComponent m_main;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ArtifaktAudioProcessorEditor)
 };
