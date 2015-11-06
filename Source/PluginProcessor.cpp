@@ -17,7 +17,7 @@
 //==============================================================================
 ArtifaktAudioProcessor::ArtifaktAudioProcessor()
 {
-    wavetable::init();
+    Wavetable::init();
 
     m_topWaveformTypeParam =
         new AudioParameterFloat("topWaveType", "Top Osc Waveform Type",

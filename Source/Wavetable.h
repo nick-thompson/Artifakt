@@ -13,7 +13,7 @@
 #ifndef WAVETABLE_H_INCLUDED
 #define WAVETABLE_H_INCLUDED
 
-namespace wavetable
+namespace Wavetable
 {
     // Number of samples in a given wavetable.
     const unsigned kTableSize = 4096;
@@ -28,7 +28,7 @@ namespace wavetable
 
     // Four possible wave types, in an order representing how they morph
     // into one another.
-    enum WaveType { SINE, TRIANGLE, SAW, SQUARE, NUM_WAVE_TYPES };
+    enum WaveType { kSine, kTriangle, kSaw, kSquare, kNumWaveTypes };
 
     // Container for the wavetable data, mapped from the `wavetable.data`
     // binary resource.

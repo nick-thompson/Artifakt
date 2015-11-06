@@ -10,7 +10,7 @@
 
 #include "Wavetable.h"
 
-namespace wavetable
+namespace Wavetable
 {
 
     std::vector<float> data;
@@ -38,8 +38,6 @@ namespace wavetable
         // Determine the closest appropriate MIDI note value.
         int note = 69 + (int) ceil(12.0 * log2(fq / 440.0));
         int offset = (t * kNumRanges * kTableSize) + (kTableSize * note);
-
-        DBG(note);
 
         // Offset the return pointer from the front of the array.
         return data.data() + offset;

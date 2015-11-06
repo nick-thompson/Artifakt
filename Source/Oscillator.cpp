@@ -10,7 +10,7 @@
 
 #include "Oscillator.h"
 
-using wavetable::WaveType;
+using Wavetable::WaveType;
 
 //==============================================================================
 /**
@@ -52,13 +52,13 @@ void Oscillator::noteOn (int midiNoteNumber, float velocity)
 
     float waveTypeValue = *m_waveTypeParam;
     unsigned lTypeIndex = static_cast<unsigned>(waveTypeValue);
-    unsigned rTypeIndex = (lTypeIndex == wavetable::NUM_WAVE_TYPES - 1)
+    unsigned rTypeIndex = (lTypeIndex == Wavetable::kNumWaveTypes - 1)
         ? lTypeIndex : lTypeIndex + 1;
 
-    m_left = wavetable::getTable(lTypeIndex, cyclesPerSecond);
-    m_right = wavetable::getTable(rTypeIndex, cyclesPerSecond);
+    m_left = Wavetable::getTable(lTypeIndex, cyclesPerSecond);
+    m_right = Wavetable::getTable(rTypeIndex, cyclesPerSecond);
     m_tableAlpha = waveTypeValue - (float) lTypeIndex;
-    m_increment = cyclesPerSample * wavetable::kTableSize;
+    m_increment = cyclesPerSample * Wavetable::kTableSize;
 }
 
 void Oscillator::noteOff (float velocity, bool allowTailOff)
@@ -73,7 +73,7 @@ void Oscillator::render (AudioSampleBuffer& outputBuffer,
                          int numSamples)
 {
     if (m_increment != 0.0) {
-        unsigned readIndexMask = wavetable::kTableSize - 1;
+        unsigned readIndexMask = Wavetable::kTableSize - 1;
 
         while (--numSamples >= 0) {
             unsigned readIndex = static_cast<unsigned>(m_index);
@@ -100,12 +100,12 @@ void Oscillator::render (AudioSampleBuffer& outputBuffer,
             ++startSample;
             m_index += m_increment;
 
-            if (m_index > wavetable::kTableSizef)
+            if (m_index > Wavetable::kTableSizef)
             {
                 // New wavetable cycle. Update wave tables for pitch slides.
                 // m_freq *= slideFactor;
-                // m_table = wavetable::getTable(wavetable::SAW, freq);
-                m_index -= wavetable::kTableSizef;
+                // m_table = Wavetable::getTable(Wavetable::SAW, freq);
+                m_index -= Wavetable::kTableSizef;
             }
         }
     }
