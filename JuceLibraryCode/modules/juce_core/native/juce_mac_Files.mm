@@ -285,7 +285,7 @@ static NSString* getFileLink (const String& path)
    #endif
 }
 
-bool File::isLink() const
+bool File::isSymbolicLink() const
 {
     return getFileLink (fullPath) != nil;
 }
@@ -309,14 +309,11 @@ bool File::moveToTrash() const
    #else
     JUCE_AUTORELEASEPOOL
     {
-        NSString* p = juceStringToNS (getFullPathName());
+        NSURL* url = [NSURL fileURLWithPath: juceStringToNS (getFullPathName())];
 
-        return [[NSWorkspace sharedWorkspace]
-                    performFileOperation: NSWorkspaceRecycleOperation
-                                  source: [p stringByDeletingLastPathComponent]
-                             destination: nsEmptyString()
-                                   files: [NSArray arrayWithObject: [p lastPathComponent]]
-                                     tag: nil ];
+        [[NSWorkspace sharedWorkspace] recycleURLs: [NSArray arrayWithObject: url]
+                                 completionHandler: nil];
+        return true;
     }
    #endif
 }
@@ -404,7 +401,12 @@ bool JUCE_CALLTYPE Process::openDocument (const String& fileName, const String& 
 {
     JUCE_AUTORELEASEPOOL
     {
-        NSURL* filenameAsURL = [NSURL URLWithString: juceStringToNS (fileName)];
+        NSString* fileNameAsNS (juceStringToNS (fileName));
+
+        NSURL* filenameAsURL ([NSURL URLWithString: fileNameAsNS]);
+
+        if (filenameAsURL == nil)
+            filenameAsURL = [NSURL fileURLWithPath: fileNameAsNS];
 
       #if JUCE_IOS
         (void) parameters;
