@@ -26,10 +26,6 @@
             file="Source/ArtifaktVoice.cpp"/>
       <FILE id="u4UNad" name="ArtifaktVoice.h" compile="0" resource="0" file="Source/ArtifaktVoice.h"/>
       <FILE id="nnH1FJ" name="ArtifaktSound.h" compile="0" resource="0" file="Source/ArtifaktSound.h"/>
-      <FILE id="auOkuy" name="FloatParameter.cpp" compile="1" resource="0"
-            file="Source/FloatParameter.cpp"/>
-      <FILE id="ARcJv7" name="FloatParameter.h" compile="0" resource="0"
-            file="Source/FloatParameter.h"/>
       <FILE id="gy0Ckk" name="OscillatorEditor.cpp" compile="1" resource="0"
             file="Source/OscillatorEditor.cpp"/>
       <FILE id="oHgxaD" name="OscillatorEditor.h" compile="0" resource="0"

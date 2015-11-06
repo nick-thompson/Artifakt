@@ -9,7 +9,6 @@
 */
 
 #include "JuceHeader.h"
-#include "FloatParameter.h"
 #include "Wavetable.h"
 
 #ifndef OSCILLATOR_H_INCLUDED
@@ -18,8 +17,8 @@
 class Oscillator
 {
 public:
-    Oscillator (AudioProcessorParameter* detune,
-                AudioProcessorParameter* waveType);
+    Oscillator (AudioParameterInt* detune,
+                AudioParameterFloat* waveType);
     ~Oscillator ();
 
     void setSampleRate (double sampleRate);
@@ -36,8 +35,8 @@ public:
                  int numSamples);
 
 private:
-    FloatParameter* m_detuneParam;
-    FloatParameter* m_waveTypeParam;
+    AudioParameterInt* m_detuneParam;
+    AudioParameterFloat* m_waveTypeParam;
 
     double m_sampleRate;
 

@@ -22,11 +22,11 @@ inline float lerpf(float a, float b, float alpha)
 }
 
 //==============================================================================
-Oscillator::Oscillator (AudioProcessorParameter* detune,
-                        AudioProcessorParameter* waveType)
+Oscillator::Oscillator (AudioParameterInt* detune,
+                        AudioParameterFloat* waveType)
 {
-    m_detuneParam = dynamic_cast<FloatParameter*>(detune);
-    m_waveTypeParam = dynamic_cast<FloatParameter*>(waveType);
+    m_detuneParam = detune;
+    m_waveTypeParam = waveType;
 }
 
 Oscillator::~Oscillator ()
@@ -43,13 +43,14 @@ void Oscillator::noteOn (int midiNoteNumber, float velocity)
     m_index = 0.0;
     m_level = velocity * 0.15;
 
-    float detune = m_detuneParam->getValue();
+    int detune = *m_detuneParam;
+
     double ratio = pow(2, (double) detune / 1200.0);
     double cyclesPerSecond =
         MidiMessage::getMidiNoteInHertz(midiNoteNumber) * ratio;
     double cyclesPerSample = cyclesPerSecond / m_sampleRate;
 
-    float waveTypeValue = m_waveTypeParam->getValue();
+    float waveTypeValue = *m_waveTypeParam;
     unsigned lTypeIndex = static_cast<unsigned>(waveTypeValue);
     unsigned rTypeIndex = (lTypeIndex == wavetable::NUM_WAVE_TYPES - 1)
         ? lTypeIndex : lTypeIndex + 1;

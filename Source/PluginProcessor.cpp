@@ -19,12 +19,36 @@ ArtifaktAudioProcessor::ArtifaktAudioProcessor()
 {
     wavetable::init();
 
-    addParameter(m_topWaveformTypeParam = new FloatParameter(0.0f, "Top Osc Waveform Type"));
-    addParameter(m_topDetuneParam = new FloatParameter(0.0f, "Top Osc Detune Amount"));
-    addParameter(m_topDistortionParam = new FloatParameter(0.0f, "Top Osc Distortion"));
-    addParameter(m_bottomWaveformTypeParam = new FloatParameter(0.0f, "Bottom Osc Waveform Type"));
-    addParameter(m_bottomDetuneParam = new FloatParameter(0.0f, "Bottom Osc Detune Amount"));
-    addParameter(m_bottomDistortionParam = new FloatParameter(0.0f, "Bottom Osc Distortion"));
+    m_topWaveformTypeParam =
+        new AudioParameterFloat("topWaveType", "Top Osc Waveform Type",
+                                0.0f, 3.0f, 0.0f);
+
+    m_topDetuneParam =
+        new AudioParameterInt("topDetuneAmount", "Top Osc Detune Amount",
+                              -48, 48, 0);
+
+    m_topDistortionParam =
+        new AudioParameterFloat("topDistAmount", "Top Osc Distortion Amount",
+                                0.0f, 1.0f, 0.0f);
+
+    m_bottomWaveformTypeParam =
+        new AudioParameterFloat("bottomWaveType", "Bottom Osc Waveform Type",
+                                0.0f, 3.0f, 0.0f);
+
+    m_bottomDetuneParam =
+        new AudioParameterInt("bottomDetuneAmount", "Bottom Osc Detune Amount",
+                              -48, 48, 0);
+
+    m_bottomDistortionParam =
+        new AudioParameterFloat("bottomDistAmount", "Bottom Osc Distortion Amount",
+                                0.0f, 1.0f, 0.0f);
+
+    addParameter(m_topWaveformTypeParam);
+    addParameter(m_topDetuneParam);
+    addParameter(m_topDistortionParam);
+    addParameter(m_bottomWaveformTypeParam);
+    addParameter(m_bottomDetuneParam);
+    addParameter(m_bottomDistortionParam);
 
     m_synth.addSound(new ArtifaktSound());
 

@@ -7,7 +7,7 @@
   the "//[xyz]" and "//[/xyz]" sections will be retained when the file is loaded
   and re-saved.
 
-  Created with Introjucer version: 3.2.0
+  Created with Introjucer version: 4.0.1
 
   ------------------------------------------------------------------------------
 
@@ -33,7 +33,7 @@ OscillatorEditor::OscillatorEditor ()
     //[/Constructor_pre]
 
     addAndMakeVisible (m_waveformTypeSlider = new Slider ("Waveform Type Slider"));
-    m_waveformTypeSlider->setRange (0, 3, 0.166);
+    m_waveformTypeSlider->setRange (0, 1, 0);
     m_waveformTypeSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     m_waveformTypeSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
     m_waveformTypeSlider->setColour (Slider::thumbColourId, Colour (0xff1de9b6));
@@ -67,7 +67,7 @@ OscillatorEditor::OscillatorEditor ()
     m_waveTypeLabel->setColour (TextEditor::highlightColourId, Colour (0xff1de9b6));
 
     addAndMakeVisible (m_detuneSlider = new Slider ("Detune Slider"));
-    m_detuneSlider->setRange (-100, 100, 1);
+    m_detuneSlider->setRange (0, 1, 0.0104166);
     m_detuneSlider->setSliderStyle (Slider::RotaryVerticalDrag);
     m_detuneSlider->setTextBoxStyle (Slider::NoTextBox, true, 80, 20);
     m_detuneSlider->setColour (Slider::thumbColourId, Colour (0xff1de9b6));
@@ -106,6 +106,7 @@ OscillatorEditor::OscillatorEditor ()
 
 
     //[UserPreSize]
+    m_detuneSlider->setValue(0.5);
     //[/UserPreSize]
 
     setSize (176, 68);
@@ -170,9 +171,9 @@ void OscillatorEditor::sliderValueChanged (Slider* sliderThatWasMoved)
 
     int offset = this->getParentComponent()->getIndexOfChildComponent(this) * 3;
 
-    FloatParameter* waveformTypeParam = static_cast<FloatParameter*>(params[offset + 0]);
-    FloatParameter* detuneParam = static_cast<FloatParameter*>(params[offset + 1]);
-    FloatParameter* distortionParam = static_cast<FloatParameter*>(params[offset + 2]);
+    AudioParameterFloat* waveformTypeParam = static_cast<AudioParameterFloat*>(params[offset + 0]);
+    AudioParameterInt* detuneParam = static_cast<AudioParameterInt*>(params[offset + 1]);
+    AudioParameterFloat* distortionParam = static_cast<AudioParameterFloat*>(params[offset + 2]);
 
     float sliderValue = (float) sliderThatWasMoved->getValue();
 
@@ -225,9 +226,9 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="8 8 48 48" thumbcol="ff1de9b6"
           trackcol="0" rotarysliderfill="ff1de9b6" rotaryslideroutline="ff212121"
           textboxtext="ff212121" textboxbkgd="0" textboxhighlight="ff1de9b6"
-          textboxoutline="0" min="0" max="3" int="0.16600000000000000866"
-          style="RotaryVerticalDrag" textBoxPos="NoTextBox" textBoxEditable="0"
-          textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
+          textboxoutline="0" min="0" max="1" int="0" style="RotaryVerticalDrag"
+          textBoxPos="NoTextBox" textBoxEditable="0" textBoxWidth="80"
+          textBoxHeight="20" skewFactor="1"/>
   <LABEL name="Detune Label" id="a1f93c7386977e20" memberName="m_detuneLabel"
          virtualName="" explicitFocusOrder="0" pos="64 48 48 20" textCol="ff212121"
          edTextCol="ff212121" edBkgCol="0" hiliteCol="ff1de9b6" labelText="DETUNE"
@@ -242,9 +243,9 @@ BEGIN_JUCER_METADATA
           virtualName="" explicitFocusOrder="0" pos="64 8 48 48" thumbcol="ff1de9b6"
           trackcol="0" rotarysliderfill="ff1de9b6" rotaryslideroutline="ff212121"
           textboxtext="ff212121" textboxbkgd="0" textboxhighlight="ff1de9b6"
-          textboxoutline="0" min="-100" max="100" int="1" style="RotaryVerticalDrag"
-          textBoxPos="NoTextBox" textBoxEditable="0" textBoxWidth="80"
-          textBoxHeight="20" skewFactor="1"/>
+          textboxoutline="0" min="0" max="1" int="0.010416599999999999818"
+          style="RotaryVerticalDrag" textBoxPos="NoTextBox" textBoxEditable="0"
+          textBoxWidth="80" textBoxHeight="20" skewFactor="1"/>
   <SLIDER name="Distortion Slider" id="aedfe51a3e31f5db" memberName="m_distortionSlider"
           virtualName="" explicitFocusOrder="0" pos="120 8 48 48" thumbcol="ff1de9b6"
           trackcol="0" rotarysliderfill="ff1de9b6" rotaryslideroutline="ff212121"
